@@ -1,0 +1,199 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Control de Diodos · Leaseir</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500&display=swap">
+<style>
+:root{--gr:#EFF1EE;--su:#FAFBF9;--s2:#F2F4F1;--ink:#161A17;--i2:#3D453C;--mu:#5D655C;
+--fa:#8A9289;--li:#D5DAD3;--l2:#E4E8E2;--ac:#00695E;--as:#DCEDEA;
+--r1:#FBEDE2;--r2:#F5D6BB;--r3:#EAB289;--r4:#D07F45;--r5:#A94E22;--c1:#00998A;--c3:#C05621}
+@media(prefers-color-scheme:dark){:root{--gr:#111411;--su:#1A1E1A;--s2:#20251F;--ink:#E7EBE5;
+--i2:#C3CAC0;--mu:#98A196;--fa:#727B71;--li:#2E332D;--l2:#262B26;--ac:#3FB5A5;--as:#16302C;
+--r1:#2A1E15;--r2:#432C1B;--r3:#6B4224;--r4:#9C5F2E;--r5:#C8823F;--c1:#22A091;--c3:#CC6A34}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--gr);color:var(--ink);font:400 15px/1.55 "IBM Plex Sans",system-ui,sans-serif}
+.w{max-width:1080px;margin:0 auto;padding:0 22px 80px}
+h1,h2{font-family:"IBM Plex Sans Condensed","IBM Plex Sans",sans-serif;margin:0;text-wrap:balance}
+header{background:var(--su);border-bottom:1px solid var(--li);margin-bottom:36px}
+header .w{padding-top:32px;padding-bottom:26px}
+.eb{font:400 11px/1 "IBM Plex Mono",monospace;letter-spacing:.16em;text-transform:uppercase;
+color:var(--mu);margin:0 0 10px}
+h1{font-size:clamp(28px,4vw,42px);font-weight:700;line-height:1.05}
+.sub{color:var(--mu);max-width:62ch;margin:14px 0 0}
+.chip{display:inline-block;font:400 11px "IBM Plex Mono",monospace;padding:4px 9px;margin:3px 4px 0 0;
+border:1px solid var(--li);border-radius:2px;color:var(--i2);background:var(--s2)}
+section{margin-top:46px}
+.sh{display:flex;justify-content:space-between;align-items:baseline;gap:14px;flex-wrap:wrap;
+border-bottom:1px solid var(--li);padding-bottom:9px;margin-bottom:20px}
+.sh h2{font-size:19px;font-weight:600}
+.sh span{font:400 12.5px "IBM Plex Mono",monospace;color:var(--fa)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:13px}
+.t{background:var(--su);border:1px solid var(--li);border-radius:6px;padding:18px}
+.t .l{font:400 11px/1 "IBM Plex Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--mu)}
+.t .b{font:600 36px/1.1 "IBM Plex Sans Condensed",sans-serif;margin-top:6px}
+.t .p{font-size:13px;color:var(--mu);margin-top:6px}
+.track{display:flex;height:64px;gap:2px;margin-bottom:12px}
+.track div{border-radius:3px}
+.lg{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:0 18px}
+.lg div{display:flex;gap:8px;padding:8px 0;border-top:1px solid var(--l2);font-size:13px;color:var(--i2)}
+.lg i{width:11px;height:11px;border-radius:2px;flex:none;margin-top:5px}
+.lg b{display:block;font:500 18px "IBM Plex Sans",sans-serif;color:var(--ink)}
+.sc{overflow-x:auto;border:1px solid var(--li);border-radius:6px;background:var(--su)}
+table{border-collapse:separate;border-spacing:2px;width:100%;font-size:13px;padding:4px;min-width:720px}
+th{font:500 10.5px/1 "IBM Plex Mono",monospace;letter-spacing:.08em;text-transform:uppercase;
+color:var(--mu);padding:7px 8px;text-align:center;white-space:nowrap}
+th.l,td.l{text-align:left}
+td{padding:8px;text-align:center;border-radius:3px;font-family:"IBM Plex Mono",monospace;
+font-variant-numeric:tabular-nums;white-space:nowrap}
+td.a{background:var(--s2);text-align:left;font-weight:500}
+td.b{background:var(--s2);color:var(--i2)}
+td.tt{background:var(--as);font-weight:500}
+td.z{color:var(--fa)}
+td.d{box-shadow:inset 0 0 0 2px var(--mu)}
+tfoot td{background:var(--as);font-weight:600}
+.rampa{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:11px;
+font:400 12px "IBM Plex Mono",monospace;color:var(--mu)}
+.rampa i{width:24px;height:12px;border-radius:2px;border:1px solid var(--li)}
+.bars{display:flex;align-items:flex-end;gap:6px;height:150px;margin-top:4px}
+.bars div{flex:1;background:var(--c1);opacity:.75;border-radius:3px 3px 0 0;min-height:2px}
+.bx{display:flex;gap:6px;margin-top:6px}
+.bx span{flex:1;text-align:center;font:400 11px "IBM Plex Mono",monospace;color:var(--mu)}
+.bv{display:flex;gap:6px;margin-bottom:4px}
+.bv span{flex:1;text-align:center;font:400 11.5px "IBM Plex Mono",monospace;color:var(--i2)}
+.q{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:13px}
+.q div{border:1px solid var(--li);border-left:3px solid var(--c3);border-radius:6px;
+padding:15px;background:var(--su)}
+.q b{font:600 28px/1.1 "IBM Plex Sans Condensed",sans-serif;display:block}
+.q span{font-size:13px;color:var(--i2);display:block;margin-top:4px}
+footer{margin-top:52px;padding-top:18px;border-top:1px solid var(--li);
+font-size:13px;color:var(--mu)}
+</style></head><body>
+<header><div class="w">
+<p class="eb">Leaseir Technologies · SAT y fabricación</p>
+<h1>Control de Diodos</h1>
+<p class="sub">Resumen del parque, de los diodos comprados y de lo que no cuadra.
+El detalle equipo a equipo, con la fila de origen de cada dato, va en la versión completa.</p>
+<div id="ch"></div></div></header>
+<div class="w">
+<section><div class="sh"><h2>El parque, en cuatro cifras</h2></div><div class="tiles" id="k"></div></section>
+<section><div class="sh"><h2>Dónde están los diodos comprados</h2><span id="nd"></span></div>
+<div class="track" id="ts"></div><div class="lg" id="ls"></div></section>
+<section><div class="sh"><h2>Averías por añada</h2>
+<span>fila = año de salida · columna = año del cambio</span></div>
+<div class="sc" id="mz"></div><div class="rampa" id="rp"></div></section>
+<section><div class="sh"><h2>Cambios de diodo por año</h2><span id="nc"></span></div>
+<div class="bv" id="bv"></div><div class="bars" id="bb"></div><div class="bx" id="bx"></div></section>
+<section><div class="sh"><h2>Quién pagó cada cambio</h2><span id="ncb"></span></div>
+<div class="track" id="tc" style="height:52px"></div><div class="lg" id="lc"></div></section>
+<section><div class="sh"><h2>Parque por cliente</h2><span>equipos en cliente y cambios acumulados</span></div>
+<div class="sc"><table><thead><tr><th class="l">Cliente</th><th>Equipos</th><th>Cambios</th>
+<th>Por equipo</th></tr></thead><tbody id="tc2"></tbody></table></div></section>
+<section><div class="sh"><h2>Lo que no cuadra</h2><span>y por qué</span></div><div class="q" id="q"></div></section>
+<footer id="ft"></footer></div>
+<script>
+var D={
+kpi:{equipos:3780,en_parque:3634,diodos:4311,cambios:746,con_diodo:3068,sin_diodo:712,
+tickets_diodo:157,sin_trazar:124,typos_resueltos:137,typos_revisar:85,typos_nocompra:85,
+duplicados:56,fechas_raras:192,solo_ventas:98},
+sit:{"Montado de fábrica":3292,"Montado como recambio":606,"En stock o sin destino":262,
+"Asignado a cliente, sin pieza de mano":128,"De baja / KO":23},
+cob:{"En garantía":171,"Facturado al cliente":10,"Cubierto por mantenimiento":30,
+"Fuera de garantía, importe sin informar":140,"Sin dato":395},
+anios:[2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026],
+cols:[2017,2018,2019,2020,2021,2022,2023,2024,2025,2026],
+ventas:[1,5,39,161,242,174,272,279,417,642,715,320],
+mtz:[[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[1,0,1,0,0,2,0,0,0,0],
+[0,1,1,2,6,8,4,8,1,0],[0,0,6,3,9,18,7,12,5,0],[0,0,0,8,8,1,1,6,1,0],
+[0,0,0,0,32,13,18,23,3,2],[0,0,0,0,1,20,8,7,3,1],[0,0,0,0,0,0,22,27,11,13],
+[0,0,0,1,1,1,2,62,21,6],[1,0,0,1,2,2,8,24,77,5],[0,0,0,0,0,0,0,0,3,19]],
+cli:[["Elha",382,80],["Sin Vello por Laser Low Cost SL",190,30],["Dermoscan",130,31],
+["Brull",127,11],["BR Esthetic 2022 SL",100,5],["Corpoderm",95,10],["Clinica Belenus SPA",86,4],
+["Turquia",74,7],["Laser Factory",61,4],["Tegemed",60,4],["Epil Point Italia",56,7],
+["Dermasana",49,31]],
+serie:[[2019,23],[2020,30],[2021,75],[2022,96],[2023,96],[2024,181],[2025,133],[2026,49]],
+gen:"2026-08-31 14:58"};
+function n(v){if(v==null)return"—";var s=Math.round(Math.abs(v))+"",o="";
+while(s.length>3){o="."+s.slice(-3)+o;s=s.slice(0,-3)}return(v<0?"−":"")+s+o}
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;
+if(x!=null)e.textContent=x;return e}
+var K=D.kpi;
+["DIODOS.xlsx · "+n(K.diodos)+" diodos","Listado Láseres · parque LML","FABRICACION LML",
+"Fabricación LT","Sales · ventas","Jira LEAS · "+n(K.tickets_diodo)+" tickets de diodo",
+"Holded LT · facturación","actualizado "+D.gen].forEach(function(t){
+document.getElementById("ch").append(el("span","chip",t))});
+[["Piezas de mano en cliente",n(K.en_parque),"de "+n(K.equipos)+" registradas"],
+["Diodos comprados",n(K.diodos),"series únicas"],
+["Cambios de diodo trazados",n(K.cambios),n(K.tickets_diodo)+" declarados por el SAT"],
+["Con diodo identificado",Math.round(K.con_diodo*100/K.equipos)+" %",
+n(K.sin_diodo)+" piezas sin identificar"]].forEach(function(t){
+var d=el("div","t");d.append(el("div","l",t[0]),el("div","b",t[1]),el("div","p",t[2]));
+document.getElementById("k").append(d)});
+var CS=[["Montado de fábrica","var(--c1)"],["Montado como recambio","var(--c3)"],
+["En stock o sin destino","#3B62B5"],["Asignado a cliente, sin pieza de mano","#8E3B93"],
+["De baja / KO","#A32A22"]];
+document.getElementById("nd").textContent=n(K.diodos)+" series";
+CS.forEach(function(x){var v=D.sit[x[0]]||0;if(!v)return;
+var b=el("div");b.style.background=x[1];b.style.flexGrow=v;document.getElementById("ts").append(b);
+var g=el("div"),i=el("i");i.style.background=x[1];var t=el("div");
+t.append(el("b",null,n(v)),document.createTextNode(x[0]));g.append(i,t);
+document.getElementById("ls").append(g)});
+var R=[[0,"transparent"],[5,"var(--r1)"],[10,"var(--r2)"],[20,"var(--r3)"],[35,"var(--r4)"],[1e9,"var(--r5)"]];
+(function(){var t=el("table"),h=el("thead"),r=el("tr");
+r.append(el("th","l","Añada"),el("th",null,"Ventas"),el("th",null,"Averías"),el("th",null,"Averías / ventas"));
+D.cols.forEach(function(c){r.append(el("th",null,c+""))});r.append(el("th",null,"Total"));
+h.append(r);t.append(h);var b=el("tbody"),tv=0,ta=0;
+D.anios.forEach(function(a,i){var v=D.ventas[i],s=D.mtz[i].reduce(function(x,y){return x+y},0);
+tv+=v;ta+=s;var tr=el("tr");
+tr.append(el("td","a",a+""),el("td","b",n(v)),el("td","b",n(s)),
+el("td","b",v?(s*100/v).toFixed(1).replace(".",",")+" %":"—"));
+D.cols.forEach(function(c,j){var d=el("td");
+if(c<a){d.className="z";d.textContent="·";tr.append(d);return}
+var q=D.mtz[i][j],p=v?q*100/v:0;
+if(!q){d.className="z"+(c===a?" d":"");d.textContent="–"}
+else{for(var m=0;m<R.length;m++)if(p<=R[m][0]){d.style.background=R[m][1];
+if(m>=4)d.style.color="#FFF6EE";break}
+if(c===a)d.classList.add("d");d.textContent=Math.round(p)+"%";
+d.title=n(q)+" de "+n(v)+" equipos de "+a+", averiados en "+c}
+tr.append(d)});
+tr.append(el("td","tt",v?(s*100/v).toFixed(1).replace(".",",")+" %":"—"));b.append(tr)});
+t.append(b);var f=el("tfoot"),fr=el("tr");
+fr.append(el("td",null,"Total"),el("td",null,n(tv)),el("td",null,n(ta)),
+el("td",null,(ta*100/tv).toFixed(1).replace(".",",")+" %"));
+D.cols.forEach(function(c,j){var s=0;D.mtz.forEach(function(f){s+=f[j]});
+fr.append(el("td",null,s?n(s):"–"))});
+fr.append(el("td",null,(ta*100/tv).toFixed(1).replace(".",",")+" %"));
+f.append(fr);t.append(f);document.getElementById("mz").append(t)})();
+var rp=document.getElementById("rp");rp.append(el("span",null,"% de la añada:"));
+[["hasta 5%","var(--r1)"],["5-10%","var(--r2)"],["10-20%","var(--r3)"],
+["20-35%","var(--r4)"],["más de 35%","var(--r5)"]].forEach(function(x){
+var i=el("i");i.style.background=x[1];rp.append(i,el("span",null,x[0]))});
+var mx=Math.max.apply(null,D.serie.map(function(s){return s[1]}));
+document.getElementById("nc").textContent=n(D.serie.reduce(function(a,s){return a+s[1]},0))+" cambios desde 2019";
+D.serie.forEach(function(s){document.getElementById("bv").append(el("span",null,n(s[1])));
+var b=el("div");b.style.height=(s[1]/mx*100)+"%";document.getElementById("bb").append(b);
+document.getElementById("bx").append(el("span",null,(s[0]+"").slice(2)))});
+var CC=[["En garantía","var(--c1)"],["Facturado al cliente","var(--c3)"],
+["Cubierto por mantenimiento","#3B62B5"],["Fuera de garantía, importe sin informar","#A32A22"],
+["Sin dato","var(--li)"]];
+document.getElementById("ncb").textContent=n(K.cambios)+" cambios trazados";
+CC.forEach(function(x){var v=D.cob[x[0]]||0;if(!v)return;
+var b=el("div");b.style.background=x[1];b.style.flexGrow=v;document.getElementById("tc").append(b);
+var g=el("div"),i=el("i");i.style.background=x[1];var t=el("div");
+t.append(el("b",null,n(v)),document.createTextNode(x[0]));g.append(i,t);
+document.getElementById("lc").append(g)});
+D.cli.forEach(function(c){var r=el("tr");
+r.append(el("td","l",c[0]),el("td",null,n(c[1])),el("td",null,n(c[2])),
+el("td",null,(c[2]/c[1]).toFixed(2).replace(".",",")));
+document.getElementById("tc2").append(r)});
+[[K.typos_resueltos,"series con un typo resuelto: un solo candidato posible entre los comprados"],
+[K.typos_revisar,"series con varios candidatos: no se tocan, hay que mirarlas a mano"],
+[K.typos_nocompra,"series montadas que no aparecen compradas"],
+[K.duplicados,"series que aparecen en más de una fila del fichero"],
+[K.sin_trazar,"cambios de diodo que declara el SAT sin número de serie detrás"],
+[K.fechas_raras,"fechas con el año mal tecleado (2004 por 2024)"],
+[K.solo_ventas,"piezas de mano vendidas sin ficha de fabricación"]].forEach(function(x){
+var d=el("div");d.append(el("b",null,n(x[0])),el("span",null,x[1]));
+document.getElementById("q").append(d)});
+document.getElementById("ft").textContent=
+"Generado el "+D.gen+" cruzando DIODOS.xlsx, Listado Láseres, Fabricación LML y LT, "+
+"el fichero de ventas, Jira y Holded. El motor que lo produce está en motor-diodos.zip.";
+</script></body></html>
