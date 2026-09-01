@@ -90,24 +90,7 @@ El detalle equipo a equipo, con la fila de origen de cada dato, va en la versió
 <section><div class="sh"><h2>Lo que no cuadra</h2><span>y por qué</span></div><div class="q" id="q"></div></section>
 <footer id="ft"></footer></div>
 <script>
-var D={
-kpi:{equipos:3780,en_parque:3634,diodos:4311,cambios:746,con_diodo:3068,sin_diodo:712,
-tickets_diodo:157,sin_trazar:124,typos_resueltos:137,typos_revisar:85,typos_nocompra:85,
-duplicados:56,fechas_raras:192,solo_ventas:98},
-sit:{"Montado de fábrica":3292,"Montado como recambio":606,"En stock o sin destino":262,
-"Asignado a cliente, sin pieza de mano":128,"De baja / KO":23},
-cob:{"En garantía":171,"Facturado al cliente":10,"Cubierto por mantenimiento":30,
-"Fuera de garantía, importe sin informar":140,"Sin dato":395},
-anios:[2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026],
-cols:[2017,2018,2019,2020,2021,2022,2023,2024,2025,2026],
-ventas:[1,5,39,161,242,174,272,279,417,642,715,320],
-mtz:[[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[1,0,1,0,0,2,0,0,0,0],
-[0,1,1,2,6,8,4,8,1,0],[0,0,6,3,9,18,7,12,5,0],[0,0,0,8,8,1,1,6,1,0],
-[0,0,0,0,32,13,18,23,3,2],[0,0,0,0,1,20,8,7,3,1],[0,0,0,0,0,0,22,27,11,13],
-[0,0,0,1,1,1,2,62,21,6],[1,0,0,1,2,2,8,24,77,5],[0,0,0,0,0,0,0,0,3,19]],
-cli:[["Cliente 1",382,80],["Cliente 2",190,30],["Cliente 3",130,31],["Cliente 4",127,11],["Cliente 5",100,5],["Cliente 6",95,10],["Cliente 7",86,4],["Cliente 8",74,7],["Cliente 9",61,4],["Cliente 10",60,4],["Cliente 11",56,7],["Cliente 12",49,31]],
-serie:[[2019,23],[2020,30],[2021,75],[2022,96],[2023,96],[2024,181],[2025,133],[2026,49]],
-gen:"2026-08-31 14:58"};
+var D={"kpi": {"equipos": 3780,"en_parque": 3634,"diodos": 4311,"cambios": 746,"con_diodo": 3068,"sin_diodo": 712,"tickets_diodo": 157,"sin_trazar": 124,"typos_resueltos": 137,"typos_revisar": 85,"typos_nocompra": 85,"duplicados": 56,"fechas_raras": 192,"solo_ventas": 98},"sit": {"Montado de fábrica": 3292,"Montado como recambio": 606,"En stock o sin destino": 262,"Asignado a cliente, sin pieza de mano": 128,"De baja / KO": 23},"cob": {"Sin dato": 395,"En garantía": 171,"Fuera de garantía, importe sin informar": 140,"Cubierto por mantenimiento": 30,"Facturado al cliente": 10},"anios": [2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026],"cols": [2017,2018,2019,2020,2021,2022,2023,2024,2025,2026],"ventas": [1,5,39,161,242,174,272,279,417,642,715,320],"mtz": [[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[1,0,1,0,0,2,0,0,0,0],[0,1,1,2,6,8,4,8,1,0],[0,0,6,3,9,18,7,12,5,0],[0,0,0,8,8,1,1,6,1,0],[0,0,0,0,32,13,18,23,3,2],[0,0,0,0,1,20,8,7,3,1],[0,0,0,0,0,0,22,27,11,13],[0,0,0,1,1,1,2,62,21,6],[1,0,0,1,2,2,8,24,77,5],[0,0,0,0,0,0,0,0,3,19]],"cli": [["Cliente 1",517,107],["Cliente 2",278,59],["Cliente 3",270,20],["Cliente 4",130,31],["Cliente 5",128,24],["Cliente 6",107,5],["Cliente 7",96,10],["Cliente 8",95,1],["Cliente 9",86,4],["Cliente 10",78,7],["Cliente 11",63,4],["Cliente 12",61,4]],"serie": [[2015,1],[2016,23],[2017,11],[2018,2],[2019,23],[2020,30],[2021,75],[2022,96],[2023,96],[2024,181],[2025,133],[2026,49]],"gen": "2026-09-01 10:16"};
 function n(v){if(v==null)return"—";var s=Math.round(Math.abs(v))+"",o="";
 while(s.length>3){o="."+s.slice(-3)+o;s=s.slice(0,-3)}return(v<0?"−":"")+s+o}
 function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;
